@@ -1,6 +1,6 @@
 import React from 'react'
 import DayCard from '../components/DayCard'
-import SavingData from '../components/SavingData'
+import SavingData from '../components/InfoData'
 
 const Home = () => {
     const cards = []
@@ -10,7 +10,7 @@ const Home = () => {
     return (
         <div>
             <div className="container mx-auto py-4 px-32">
-                <SavingData />
+                <InfoData />
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
                     {cards.map(card => (
                         <DayCard key={card.number} number={card.number} price={card.price}/>
