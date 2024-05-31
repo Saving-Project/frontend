@@ -1,9 +1,11 @@
 import React from 'react'
+import Home from './pages/Home'
+import First from './pages/First'
 
 const App = () => {
     return (
         <div>
-            <h1 className='text-3xl font-bold'>hello world</h1>
+            <First />
         </div>
     )
 }
