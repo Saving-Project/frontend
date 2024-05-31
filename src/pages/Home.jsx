@@ -1,6 +1,6 @@
 import React from 'react'
 import DayCard from '../components/DayCard'
-import SavingData from '../components/InfoData'
+import InfoData from '../components/InfoData'
 
 const Home = () => {
     const cards = []

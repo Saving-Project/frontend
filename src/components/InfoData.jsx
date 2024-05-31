@@ -18,4 +18,4 @@ const InfoData = () => {
     )
 }
 
-export default SavingData
+export default InfoData
