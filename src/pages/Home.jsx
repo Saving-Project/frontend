@@ -1,6 +1,7 @@
 import React from 'react'
 import DayCard from '../components/DayCard'
 import InfoData from '../components/InfoData'
+import { LuLogOut } from 'react-icons/lu'
 
 const Home = () => {
     const cards = []
@@ -9,6 +10,9 @@ const Home = () => {
     }
     return (
         <div className='flex flex-col min-h-screen'>
+            <button className='absolute top-4 right-4 p-2 rounded-full bg-gray-200 hover:bg-gray-300'>
+                <LuLogOut className='text-xl'/>
+            </button>
             <div className="container mx-auto py-4 px-32">
                 <InfoData />
                 <div className='h-[70vh] flex-1 overflow-y-auto'>
