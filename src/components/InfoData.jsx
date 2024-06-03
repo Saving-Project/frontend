@@ -18,6 +18,9 @@ const InfoData = () => {
                         <div className='text-3xl font-bold'>$1'000.000</div>
                     </div>
                     <div>
+                        <button className='bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-700'>Reiniciar Ahorro</button>   
+                    </div>    
+                    <div>
                         <div className='text-lg'>Monto Actual</div>
                         <div className='text-3xl font-bold'>$0</div>
                     </div>
