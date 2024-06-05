@@ -9,8 +9,8 @@ const Home = () => {
     const [isOpen, setIsOpen] = useState(false)
 
     const plans = [
-        { id: 1, description: 'Plan A', value: 500 },
-        { id: 2, description: 'Plan B', value: 1000 }
+        { id: 1, description: 'Plan A', value: 500, startDate: '2024-06-05', endDate: '2024-12-21' },
+        { id: 2, description: 'Plan B', value: 1000, startDate: '2024-06-05', endDate: '2024-12-21' }
     ]
 
     const handleOpenPlan = id => {
@@ -45,6 +45,8 @@ const Home = () => {
                             <PlanCard key={plan.id}
                                 description={plan.description}
                                 value={plan.value}
+                                startDate={plan.startDate}
+                                endDate={plan.endDate}
                                 onOpen={() => handleOpenPlan(plan.id)}
                             />
                         ))}
