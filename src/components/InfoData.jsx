@@ -11,20 +11,21 @@ const InfoData = () => {
                 :
                 <div>
 
-                <h2 className='text-2xl font-bold mb-4'>Plan de Ahorro de Fulanito</h2>
-                <div className='flex justify-between'>
-                    <div>
-                        <div className='text-lg'>Meta</div>
-                        <div className='text-3xl font-bold'>$1'000.000</div>
+                    <h2 className='text-2xl font-bold mb-4'>Plan de Ahorro de Fulanito</h2>
+                    <div className='flex justify-between mb-6'>
+                        <div>
+                            <div className='text-lg'>Meta</div>
+                            <div className='text-3xl font-bold'>$1'000.000</div>
+                        </div>
+                        <div>
+                            <div className='text-lg'>Monto Actual</div>
+                            <div className='text-3xl font-bold'>$0</div>
+                        </div>
                     </div>
-                    <div>
-                        <button className='bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-700'>Reiniciar Ahorro</button>   
-                    </div>    
-                    <div>
-                        <div className='text-lg'>Monto Actual</div>
-                        <div className='text-3xl font-bold'>$0</div>
-                    </div>
-                </div>
+                    <div className='flex justify-center space-x-4'>
+                        <button className='bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-700'>Reiniciar Ahorro</button>
+                        <button className='bg-red-500 text-white py-2 px-4 rounded hover:bg-red-700'>Eliminar Botón</button>  
+                    </div>   
                 </div>
             }
         </div>
