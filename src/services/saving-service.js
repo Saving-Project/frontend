@@ -1,5 +1,9 @@
 import axios from './axios'
 
-export const createSavingRequest = () => axios.post('/saving')
-export const getSavingRequest = () => axios.get('/saving')
-export const updateSavingRequest = day => axios.put('/saving', day)
+export const createSavingsPlanRequest = saving => axios.post('/saving', saving)
+export const getPlanRequest = id => axios.get(`/saving/${id}`)
+export const getPlansRequest = () => axios.get('/saavings')
+export const markDayAsSavedRequest = (id, saving) => axios.put(`/saving/${id}`, saving)
+export const resetPlanRequest = id => axios.put(`/saving/${id}/reset`)
+export const completePlanRequest = id => axios.put(`/saving/${id}`)
+export const deletePlanRequest = id => axios.delete(`/saving/${id}`)
