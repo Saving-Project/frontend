@@ -34,7 +34,7 @@ const First = () => {
                     >
                         Volver
                     </button>
-                    {isLogin ? <LoginForm /> : <RegisterForm />}
+                    {isLogin ? <LoginForm /> : <RegisterForm enableLogin={enableLogin}/>}
                 </div>
             }
         </div>
