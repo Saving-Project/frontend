@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from 'react'
 import { AuthContext } from '../context/AuthContext'
 import { useForm } from 'react-hook-form'
 import Swal from 'sweetalert2'
+import { ToastContainer, toast } from 'react-toastify'
 
 const RegisterForm = ({ enableLogin }) => {
     const {
@@ -41,14 +42,19 @@ const RegisterForm = ({ enableLogin }) => {
     })
 
     return (
-        <div className='flex justify-center items-center'>
-            {userErrors.map((err, i) => (
-                <p className='text-red-500 text-xs italic' key={i}>
-                    {err}
-                </p>
-            ))
-
-            }
+        <div className='flex justify-center items-center relative'>
+            <div className='fixed top-4 right-4 flex flex-col space-y-2 z-50'>
+                {userErrors.map((error, index) => (
+                    <div key={index} 
+                    className='bg-red-500 text-white p-4 rounded-lg shadow-lg z-50 animate-fade-out'
+                        style={{ animationDelay: `${index * 100}ms` }}
+                    >
+                        <div className='flex justify-between items-center'>
+                            <span>{error}</span>
+                        </div>
+                    </div>
+                ))}
+            </div>
             <form className='bg-white p-6 rounded-lg shadow-lg w-full max-w-md' onSubmit={onSubmit}>
                 <h2 className='text-2xl font-bold mb-6 text-center'>CREAR CUENTA</h2>
                 <div className='mb-4'>

@@ -24,7 +24,7 @@ export const AuthProvider = ({ children }) => {
         if (userErrors.length > 0) {
             const timer = setTimeout(() => {
                 setUserErrors([])
-            }, 5000)
+            }, 4000)
             return () => clearTimeout(timer)
         }
     }, [userErrors])
