@@ -1,5 +1,5 @@
 import React, { createContext, useState, useEffect } from 'react'
-import { registerRequest } from '../services/user-service'
+import { loginRequest, registerRequest } from '../services/user-service'
 
 export const AuthContext = createContext()
 
@@ -20,6 +20,20 @@ export const AuthProvider = ({ children }) => {
         }
     }
 
+    const signIn = async user => {
+        try {
+            setUserErrors([])
+            const res = await loginRequest(user)
+            localStorage.setItem('auth_token', res.data.token)
+            setUser(res.data.user)
+            setIsAuthenticated(true)
+            return true
+        } catch (error) {
+            console.log(error.response.data)
+            setUserErrors([error.response.data.message])
+        }
+    }
+
     useEffect(() => {
         if (userErrors.length > 0) {
             const timer = setTimeout(() => {
@@ -32,7 +46,9 @@ export const AuthProvider = ({ children }) => {
     return (
         <AuthContext.Provider value={{
             signUp,
+            signIn,
             user,
+            isAuthenticated,
             userErrors
         }}>
             {children}

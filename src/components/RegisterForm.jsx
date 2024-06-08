@@ -1,16 +1,14 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { AuthContext } from '../context/AuthContext'
 import { useForm } from 'react-hook-form'
 import Swal from 'sweetalert2'
-import { ToastContainer, toast } from 'react-toastify'
 
 const RegisterForm = ({ enableLogin }) => {
-    const {
-        signUp,
-        userErrors
-    } = useContext(AuthContext)
     const [showPassword, setShowPassword] = useState(false)
     const [showConfirm, setShowConfirm] = useState(false)
+
+    const { signUp, userErrors } = useContext(AuthContext)
+
     const {
         register,
         handleSubmit,
@@ -99,7 +97,6 @@ const RegisterForm = ({ enableLogin }) => {
                             {showPassword ? 'Ocultar' : 'Mostrar'}
                         </button>
                     </div>
-                    {errors.password && <p className='text-red-500 text-xs italic'>{errors.password.message}</p>}
                 </div>
                 <div className='mb-4'>
                     <label className='block text-gray-700 text-sm font-bold mb-2' htmlFor='confirmPassword'>
