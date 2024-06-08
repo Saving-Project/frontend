@@ -1,5 +1,5 @@
 import React, { createContext, useState, useEffect } from 'react'
-import { loginRequest, registerRequest } from '../services/user-service'
+import { getInfoRequest, loginRequest, registerRequest } from '../services/user-service'
 
 export const AuthContext = createContext()
 
@@ -12,10 +12,8 @@ export const AuthProvider = ({ children }) => {
         try {
             const res = await registerRequest(user)
             setUser(res.data)
-            console.log(res.data)
             return true
         } catch (error) {
-            console.log(error)
             setUserErrors(error.response.data.errors)
         }
     }
@@ -29,8 +27,33 @@ export const AuthProvider = ({ children }) => {
             setIsAuthenticated(true)
             return true
         } catch (error) {
-            console.log(error.response.data)
             setUserErrors([error.response.data.message])
+        }
+    }
+
+    const logout = () => {
+        localStorage.removeItem('auth_token')
+        setIsAuthenticated(false)
+        setUser(null)
+    }
+
+    const checkToken = async () => {
+        const token = localStorage.getItem('auth_token')
+
+        if (token) {
+            try {
+                const res = await getInfoRequest()
+                if (res.status === 200) {
+                    setUser(res.data)
+                    setIsAuthenticated(true)
+                    return
+                }
+            } catch (error) {
+                console.error('Error getting user information: ', error)
+                setIsAuthenticated(false)
+            }
+        } else {
+            setIsAuthenticated(false)
         }
     }
 
@@ -43,10 +66,16 @@ export const AuthProvider = ({ children }) => {
         }
     }, [userErrors])
 
+    useEffect(() => {
+        checkToken()
+    }, [])
+
     return (
         <AuthContext.Provider value={{
             signUp,
             signIn,
+            logout,
+            checkToken,
             user,
             isAuthenticated,
             userErrors

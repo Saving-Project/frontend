@@ -1,18 +1,29 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import Saving from '../components/Saving'
 import { LuLogOut } from 'react-icons/lu'
 import PlanCard from '../components/PlanCard'
 import Modal from '../components/Modal'
+import { AuthContext } from '../context/AuthContext'
+import { useNavigate } from 'react-router-dom'
 
 const Home = () => {
     const [selectedPlan, setSelectedPlan] = useState(null)
     const [isOpen, setIsOpen] = useState(false)
+
+    const navigate = useNavigate()
+
+    const { logout } = useContext(AuthContext)
 
     const plans = [
         { id: 1, description: 'Plan A', value: 500, startDate: '2024-06-05', endDate: '2024-12-21' },
         { id: 2, description: 'Plan B', value: 1000, startDate: '2024-06-05', endDate: '2024-12-21' }
     ]
 
+    const handleLogout = () => {
+        logout()
+        navigate('/')
+    }
+    
     const handleOpenPlan = id => {
         setSelectedPlan(id)
     }
@@ -28,7 +39,9 @@ const Home = () => {
 
     return (
         <div className='flex flex-col min-h-screen relative'>
-            <button className='absolute top-4 right-4 p-2 rounded-full bg-gray-200 hover:bg-gray-300'>
+            <button className='absolute top-4 right-4 p-2 rounded-full bg-gray-200 hover:bg-gray-300'
+                onClick={handleLogout}
+            >
                 <LuLogOut className='text-xl'/>
             </button>
 

@@ -1,11 +1,16 @@
-import React, { useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import RegisterForm from '../components/RegisterForm'
 import LoginForm from '../components/LoginForm'
+import { useNavigate } from 'react-router-dom'
+import { AuthContext } from '../context/AuthContext'
 
 const First = () => {
     const [showButtons, setShowButtons] = useState(true)
     const [isLogin, setIsLogin] = useState(false)
-    const [isRegister, setIsRegister] = useState(false)
+
+    const navigate = useNavigate()
+
+    const { isAuthenticated, checkToken } = useContext(AuthContext)
 
     const enableLogin = () => {
         setIsLogin(true)
@@ -19,6 +24,15 @@ const First = () => {
         setShowButtons(true)
         setIsLogin(false)
     }
+
+    useEffect(() => {
+        checkToken()
+    }, [])
+
+    useEffect(() => {
+        console.log(isAuthenticated)
+        if (isAuthenticated) navigate('/home')
+    }, [isAuthenticated])
 
     return (
         <div className='flex justify-center items-center min-h-screen'>
