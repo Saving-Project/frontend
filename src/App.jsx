@@ -5,19 +5,22 @@ import Footer from './components/Footer'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import { AuthProvider } from './context/AuthContext'
 import ProtectedRoute from './ProtectedRoute'
+import { PlanProvider } from './context/PlanContext'
 
 const App = () => {
     return (
         <div>
             <AuthProvider>
-                <BrowserRouter>
-                    <Routes>
-                        <Route path='/' element={<First />} />
-                        <Route element={<ProtectedRoute />}>
-                            <Route path='/home' element={<Home />} />
-                        </Route>
-                    </Routes>
-                </BrowserRouter>
+                <PlanProvider>
+                    <BrowserRouter>
+                        <Routes>
+                            <Route path='/' element={<First />} />
+                            <Route element={<ProtectedRoute />}>
+                                <Route path='/home' element={<Home />} />
+                            </Route>
+                        </Routes>
+                    </BrowserRouter>
+                </PlanProvider>
                 <Footer />
             </AuthProvider>
         </div>
