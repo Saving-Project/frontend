@@ -10,6 +10,16 @@ const Saving = ({ idPlan }) => {
 
     const days = plan?.day_plans ?? []
 
+    const handleSaveDay = async dayId => {
+        try {
+            await markDay(idPlan, dayId)
+            return { success: true }
+        } catch (error) {
+            console.error('Error saving day: ', error)
+            return { success: false }
+        }
+    }
+
     useEffect(() => {
         fetchPlanInfo(idPlan)
     }, [isAuthenticated, idPlan])
@@ -29,7 +39,7 @@ const Saving = ({ idPlan }) => {
                             price={day.saving_day.amount}
                             saved={day.saved}
                             enabled={day.enabled}
-                            onSave={() => markDay(plan.id, day.id)}
+                            onSave={() => handleSaveDay(day.id)}
                         />
                     ))}
                 </div>
