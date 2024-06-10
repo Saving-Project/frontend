@@ -28,8 +28,11 @@ export const PlanProvider = ({ children }) => {
 
         try {
             const res = await getPlanRequest(id)
-            console.log(res.data)
-            setPlan(res.data)
+            const planData = res.data
+
+            planData.day_plans.sort((a, b) => a.saving_day.day - b.saving_day.day)
+            console.log(planData)
+            setPlan(planData)
         } catch (error) {
             console.log(error)
             setPlanErrors([error.response.data.message])
