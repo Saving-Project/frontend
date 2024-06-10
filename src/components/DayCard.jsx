@@ -1,6 +1,6 @@
 import React from 'react'
 
-const DayCard = ({ number, price, saved, enabled }) => {
+const DayCard = ({ number, price, saved, enabled, onSave }) => {
     return (
         <div className="border border-gray-300 rounded-lg shadow-lg p-4 flex flex-col items-center">
             <div className="text-4xl font-bold mb-2">{number}</div>
@@ -11,6 +11,7 @@ const DayCard = ({ number, price, saved, enabled }) => {
                     id={`selectCard-${number}`}
                     checked={saved}
                     disabled={saved}
+                    onChange={onSave}
                 />
                 <label htmlFor={`selectCard-${number}`} className='ml-2'>
                     {saved ? 'Ahorrado' : 'Ahorrar'}

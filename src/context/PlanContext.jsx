@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useEffect, useState } from 'react'
 import { AuthContext } from './AuthContext'
-import { createSavingsPlanRequest, getPlanRequest, getPlansRequest } from '../services/saving-service'
+import { createSavingsPlanRequest, getPlanRequest, getPlansRequest, markDayAsSavedRequest } from '../services/saving-service'
 
 export const PlanContext = createContext()
 
@@ -58,6 +58,19 @@ export const PlanProvider = ({ children }) => {
         }
     }
 
+    const markDay = async (id, day) => {
+        if (!isAuthenticated) return
+
+        try {
+            await markDayAsSavedRequest(id, { day })
+            const res = await fetchPlanInfo(id)
+            setPlan(res.data)
+            return true
+        } catch (error) {
+            setPlanErrors([error.response.data.message])
+        }
+    }
+
     useEffect(() => {
         fetchPlanList()
     }, [isAuthenticated])
@@ -74,7 +87,9 @@ export const PlanProvider = ({ children }) => {
     return (
         <PlanContext.Provider value={{
             createPlan,
+            fetchPlanList,
             fetchPlanInfo,
+            markDay,
             plan,
             plans,
             planErrors

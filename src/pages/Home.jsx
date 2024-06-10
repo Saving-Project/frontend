@@ -10,7 +10,7 @@ import { PlanContext } from '../context/PlanContext'
 const Home = () => {
     const [selectedPlan, setSelectedPlan] = useState(null)
     const [isOpen, setIsOpen] = useState(false)
-    const { plans, plansErrors, fetchPlanInfo } = useContext(PlanContext)
+    const { plans, plansErrors, fetchPlanList } = useContext(PlanContext)
 
     const navigate = useNavigate()
 
@@ -25,7 +25,7 @@ const Home = () => {
         navigate('/')
     }
     
-    const handleOpenPlan = (id, description) => {
+    const handleOpenPlan = (id) => {
         setSelectedPlan(id)
     }
     const handleBack = () => {
@@ -36,6 +36,7 @@ const Home = () => {
     }
     const handleCloseModal = () => {
         setIsOpen(false)
+        fetchPlanList()
     }
 
     return (
@@ -61,7 +62,7 @@ const Home = () => {
                                 value={plan.total_saving}
                                 startDate={plan.starts_in}
                                 endDate={plan.ends_in}
-                                onOpen={() => handleOpenPlan(plan.id, plan.description)}
+                                onOpen={() => handleOpenPlan(plan.id)}
                             />
                         ))}
                     </div>
