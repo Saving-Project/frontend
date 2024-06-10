@@ -5,10 +5,12 @@ import PlanCard from '../components/PlanCard'
 import Modal from '../components/Modal'
 import { AuthContext } from '../context/AuthContext'
 import { useNavigate } from 'react-router-dom'
+import { PlanContext } from '../context/PlanContext'
 
 const Home = () => {
     const [selectedPlan, setSelectedPlan] = useState(null)
     const [isOpen, setIsOpen] = useState(false)
+    const { plans, plansErrors } = useContext(PlanContext)
 
     const navigate = useNavigate()
 
@@ -17,11 +19,6 @@ const Home = () => {
     const currentDate = new Date()
     const startDate = new Date().toISOString().split('T')[0]
     const endDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate() + 199).toISOString().split('T')[0]
-
-    const plans = [
-        { id: 1, description: 'Plan A', value: 500, startDate: '2024-06-05', endDate: '2024-12-21' },
-        { id: 2, description: 'Plan B', value: 1000, startDate: '2024-06-05', endDate: '2024-12-21' }
-    ]
 
     const handleLogout = () => {
         logout()
@@ -61,9 +58,9 @@ const Home = () => {
                         {plans.map(plan => (
                             <PlanCard key={plan.id}
                                 description={plan.description}
-                                value={plan.value}
-                                startDate={plan.startDate}
-                                endDate={plan.endDate}
+                                value={plan.total_saving}
+                                startDate={plan.starts_in}
+                                endDate={plan.ends_in}
                                 onOpen={() => handleOpenPlan(plan.id)}
                             />
                         ))}
