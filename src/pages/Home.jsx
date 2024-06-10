@@ -14,6 +14,10 @@ const Home = () => {
 
     const { logout, user } = useContext(AuthContext)
 
+    const currentDate = new Date()
+    const startDate = new Date().toISOString().split('T')[0]
+    const endDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate() + 199).toISOString().split('T')[0]
+
     const plans = [
         { id: 1, description: 'Plan A', value: 500, startDate: '2024-06-05', endDate: '2024-12-21' },
         { id: 2, description: 'Plan B', value: 1000, startDate: '2024-06-05', endDate: '2024-12-21' }
@@ -64,7 +68,7 @@ const Home = () => {
                             />
                         ))}
                     </div>
-                    <Modal open={isOpen} onClose={handleCloseModal}/>
+                    <Modal open={isOpen} onClose={handleCloseModal} startDate={startDate} endDate={endDate}/>
                 </div>
             ) : (
                 <div>
