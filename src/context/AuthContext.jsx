@@ -49,7 +49,6 @@ export const AuthProvider = ({ children }) => {
                     return
                 }
             } catch (error) {
-                console.error('Error getting user information: ', error)
                 setIsAuthenticated(false)
             }
         } else {

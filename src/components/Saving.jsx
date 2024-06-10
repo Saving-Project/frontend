@@ -12,7 +12,6 @@ const Saving = ({ idPlan }) => {
 
     useEffect(() => {
         fetchPlanInfo(idPlan)
-        console.log(plan)
     }, [isAuthenticated, idPlan])
 
     if (!plan) {

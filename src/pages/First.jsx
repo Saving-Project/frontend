@@ -30,7 +30,6 @@ const First = () => {
     }, [])
 
     useEffect(() => {
-        console.log(isAuthenticated)
         if (isAuthenticated) navigate('/home')
     }, [isAuthenticated])
 
