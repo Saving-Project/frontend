@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 
-const InfoData = () => {
+const InfoData = ({ description, value }) => {
     const [isCompleted, setIsCompleted] = useState(false)
     return (
         <div className='w-full border border-gray-300 rounded-lg shadow-lg py-4 px-64 mb-4 text-center'>
@@ -11,7 +11,7 @@ const InfoData = () => {
                 :
                 <div>
 
-                    <h2 className='text-2xl font-bold mb-4'>Plan de Ahorro de Fulanito</h2>
+                    <h2 className='text-2xl font-bold mb-4'>{description}</h2>
                     <div className='flex justify-between mb-6'>
                         <div>
                             <div className='text-lg'>Meta</div>
@@ -19,7 +19,7 @@ const InfoData = () => {
                         </div>
                         <div>
                             <div className='text-lg'>Monto Actual</div>
-                            <div className='text-3xl font-bold'>$0</div>
+                            <div className='text-3xl font-bold'>${value}</div>
                         </div>
                     </div>
                     <div className='flex justify-center space-x-4'>
