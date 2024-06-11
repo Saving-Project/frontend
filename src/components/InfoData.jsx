@@ -1,7 +1,36 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
+import { PlanContext } from '../context/PlanContext'
+import Swal from 'sweetalert2'
 
-const InfoData = ({ description, value }) => {
+const InfoData = ({ idPlan, description, value, setSelectedPlan }) => {
     const [isCompleted, setIsCompleted] = useState(false)
+    const { deletePlan, fetchPlanList } = useContext(PlanContext)
+
+    const handleDelete = async () => {
+        const deleted = await deletePlan(idPlan)
+
+        if (deleted) {
+            Swal.fire({
+                title: 'Plan eliminado!',
+                text: 'Has borrado el plan con éxito!',
+                icon: 'success',
+                confirmButtonText: 'Ok'
+            }).then(() => {
+                setSelectedPlan(null)
+                fetchPlanList()
+            })
+        } else {
+            Swal.fire({
+                title: 'ERROR!',
+                text: 'Hubo un error al eliminar el plan de ahorro',
+                icon: 'error',
+                confirmButtonText: 'Ok'
+            }).then(() => {
+                fetchPlanInfo(idPlan)
+            })
+        }
+    }
+
     return (
         <div className='w-full border border-gray-300 rounded-lg shadow-lg py-4 px-64 mb-4 text-center'>
             {isCompleted ?
@@ -24,7 +53,7 @@ const InfoData = ({ description, value }) => {
                     </div>
                     <div className='flex justify-center space-x-4'>
                         <button className='bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-700'>Reiniciar Ahorro</button>
-                        <button className='bg-red-500 text-white py-2 px-4 rounded hover:bg-red-700'>Eliminar Botón</button>  
+                        <button className='bg-red-500 text-white py-2 px-4 rounded hover:bg-red-700' onClick={handleDelete}>Eliminar Plan</button>  
                     </div>   
                 </div>
             }

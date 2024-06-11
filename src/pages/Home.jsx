@@ -78,7 +78,7 @@ const Home = () => {
                     >
                         Volver
                     </button>
-                        <Saving idPlan={selectedPlan} />    
+                        <Saving idPlan={selectedPlan} setSelectedPlan={setSelectedPlan} />    
                 </div>
             )}
         </div>
