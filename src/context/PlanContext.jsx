@@ -67,6 +67,7 @@ export const PlanProvider = ({ children }) => {
             setPlan(res.data)
             return true
         } catch (error) {
+            console.log(error)
             setPlanErrors(error)
         }
     }

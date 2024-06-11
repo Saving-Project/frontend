@@ -10,7 +10,7 @@ import { PlanContext } from '../context/PlanContext'
 const Home = () => {
     const [selectedPlan, setSelectedPlan] = useState(null)
     const [isOpen, setIsOpen] = useState(false)
-    const { plans, plansErrors, fetchPlanList } = useContext(PlanContext)
+    const { plans, fetchPlanList } = useContext(PlanContext)
 
     const navigate = useNavigate()
 
@@ -27,6 +27,7 @@ const Home = () => {
     
     const handleOpenPlan = (id) => {
         setSelectedPlan(id)
+        fetchPlanInfo(id)
     }
     const handleBack = () => {
         setSelectedPlan(null)
