@@ -32,6 +32,7 @@ const Home = () => {
     }
     const handleBack = () => {
         setSelectedPlan(null)
+        fetchPlanList()
     }
     const handleOpenModal = () => {
         setIsOpen(true)
