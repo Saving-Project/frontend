@@ -1,26 +1,30 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import Swal from 'sweetalert2'
+import { PlanContext } from '../context/PlanContext'
 
-const DayCard = ({ number, price, saved, enabled, onSave }) => {
+const DayCard = ({ number, price, saved, enabled, idDay, idPlan }) => {
+    const { markDay, fetchPlanInfo } = useContext(PlanContext)
+
     const handleSave = async () => {
-        if (!enabled) {
-            Swal.fire({
-                title: 'Día no disponible',
-                text: 'No puedes guardar este día todavía',
-                icon: 'warning',
-                confirmButtonText: 'Ok'
-            })
-            return
-        }
+        const marked = await markDay(idPlan, idDay)
 
-        const result = await onSave()
-        
-        if (result.success) {
+        if (marked) {
             Swal.fire({
-                title: 'Día guardado con éxito',
-                text: `Has guardado el día ${number} y ahorraste $${price} con éxito`,
+                title: 'Día guardado!',
+                text: 'El día fue guardado con éxito!',
                 icon: 'success',
                 confirmButtonText: 'Ok'
+            }).then(() => {
+                fetchPlanInfo(idPlan)
+            })
+        } else {
+            Swal.fire({
+                title: 'Día no disponible!',
+                text: 'El día no se pudo guardar!',
+                icon: 'warning',
+                confirmButtonText: 'Ok'
+            }).then(() => {
+                fetchPlanInfo(idPlan)
             })
         }
     }

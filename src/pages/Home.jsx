@@ -10,15 +10,16 @@ import { PlanContext } from '../context/PlanContext'
 const Home = () => {
     const [selectedPlan, setSelectedPlan] = useState(null)
     const [isOpen, setIsOpen] = useState(false)
-    const { plans, fetchPlanList } = useContext(PlanContext)
+    const { plans, fetchPlanList, fetchPlanInfo } = useContext(PlanContext)
 
     const navigate = useNavigate()
 
     const { logout, user } = useContext(AuthContext)
 
-    const currentDate = new Date()
-    const startDate = new Date().toISOString().split('T')[0]
-    const endDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate() + 199).toISOString().split('T')[0]
+    const now = new Date()
+    const localDate = new Date(now.getTime() - now.getTimezoneOffset() * 60000)
+    const startDate = localDate.toISOString().split('T')[0]
+    const endDate = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 199).toISOString().split('T')[0]
 
     const handleLogout = () => {
         logout()

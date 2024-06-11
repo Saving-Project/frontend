@@ -62,12 +62,13 @@ export const PlanProvider = ({ children }) => {
         if (!isAuthenticated) return
 
         try {
-            await markDayAsSavedRequest(id, { day })
-            const res = await fetchPlanInfo(id)
+            const res = await markDayAsSavedRequest(id, { day })
+            await fetchPlanInfo(res.data.plan.id)
             setPlan(res.data)
+            console.log(res.data.plan.id)
             return true
         } catch (error) {
-            console.log(error)
+            console.log(error.response)
             setPlanErrors(error)
         }
     }
