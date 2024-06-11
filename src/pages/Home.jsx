@@ -10,32 +10,36 @@ import { PlanContext } from '../context/PlanContext'
 const Home = () => {
     const [selectedPlan, setSelectedPlan] = useState(null)
     const [isOpen, setIsOpen] = useState(false)
-    const { plans, plansErrors, fetchPlanInfo } = useContext(PlanContext)
+    const { plans, fetchPlanList, fetchPlanInfo } = useContext(PlanContext)
 
     const navigate = useNavigate()
 
     const { logout, user } = useContext(AuthContext)
 
-    const currentDate = new Date()
-    const startDate = new Date().toISOString().split('T')[0]
-    const endDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate() + 199).toISOString().split('T')[0]
+    const now = new Date()
+    const localDate = new Date(now.getTime() - now.getTimezoneOffset() * 60000)
+    const startDate = localDate.toISOString().split('T')[0]
+    const endDate = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 199).toISOString().split('T')[0]
 
     const handleLogout = () => {
         logout()
         navigate('/')
     }
     
-    const handleOpenPlan = (id, description) => {
+    const handleOpenPlan = (id) => {
         setSelectedPlan(id)
+        fetchPlanInfo(id)
     }
     const handleBack = () => {
         setSelectedPlan(null)
+        fetchPlanList()
     }
     const handleOpenModal = () => {
         setIsOpen(true)
     }
     const handleCloseModal = () => {
         setIsOpen(false)
+        fetchPlanList()
     }
 
     return (
@@ -61,7 +65,7 @@ const Home = () => {
                                 value={plan.total_saving}
                                 startDate={plan.starts_in}
                                 endDate={plan.ends_in}
-                                onOpen={() => handleOpenPlan(plan.id, plan.description)}
+                                onOpen={() => handleOpenPlan(plan.id)}
                             />
                         ))}
                     </div>
