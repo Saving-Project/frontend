@@ -2,7 +2,7 @@ import React, { useContext } from 'react'
 import Swal from 'sweetalert2'
 import { PlanContext } from '../context/PlanContext'
 
-const DayCard = ({ number, price, saved, enabled, idDay, idPlan }) => {
+const DayCard = ({ number, price, saved, idDay, idPlan }) => {
     const { markDay, fetchPlanInfo } = useContext(PlanContext)
 
     const handleSave = async () => {
