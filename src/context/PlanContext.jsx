@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useEffect, useState } from 'react'
 import { AuthContext } from './AuthContext'
-import { createSavingsPlanRequest, deletePlanRequest, getPlanRequest, getPlansRequest, markDayAsSavedRequest, resetPlanRequest } from '../services/saving-service'
+import { completePlanRequest, createSavingsPlanRequest, deletePlanRequest, getPlanRequest, getPlansRequest, markDayAsSavedRequest, resetPlanRequest } from '../services/saving-service'
 
 export const PlanContext = createContext()
 
@@ -64,8 +64,12 @@ export const PlanProvider = ({ children }) => {
         try {
             const res = await markDayAsSavedRequest(id, { day })
             await fetchPlanInfo(res.data.plan.id)
-            setPlan(res.data)
-            console.log(res.data.plan.id)
+            setPlan(res.data.plan)
+            const finalDay = plan.day_plans[199]
+            if (finalDay.saving_day_id === 200) {
+                const secondRes = await completePlanRequest(plan.id)
+                console.log(secondRes)
+            }
             return true
         } catch (error) {
             console.log(error.response)

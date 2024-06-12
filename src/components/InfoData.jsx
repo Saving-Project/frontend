@@ -1,8 +1,8 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { PlanContext } from '../context/PlanContext'
 import Swal from 'sweetalert2'
 
-const InfoData = ({ idPlan, description, value, setSelectedPlan }) => {
+const InfoData = ({ plan, setSelectedPlan }) => {
     const [isCompleted, setIsCompleted] = useState(false)
     const {
         deletePlan,
@@ -12,7 +12,7 @@ const InfoData = ({ idPlan, description, value, setSelectedPlan }) => {
     } = useContext(PlanContext)
 
     const handleDelete = async () => {
-        const deleted = await deletePlan(idPlan)
+        const deleted = await deletePlan(plan.id)
 
         if (deleted) {
             Swal.fire({
@@ -31,13 +31,13 @@ const InfoData = ({ idPlan, description, value, setSelectedPlan }) => {
                 icon: 'error',
                 confirmButtonText: 'Ok'
             }).then(() => {
-                fetchPlanInfo(idPlan)
+                fetchPlanInfo(plan.id)
             })
         }
     }
 
     const handleReset = async () => {
-        const reseted = await resetPlan(idPlan)
+        const reseted = await resetPlan(plan.id)
 
         if (reseted) {
             Swal.fire({
@@ -46,7 +46,7 @@ const InfoData = ({ idPlan, description, value, setSelectedPlan }) => {
                 icon: 'success',
                 confirmButtonText: 'Ok'
             }).then(() => {
-                fetchPlanInfo(idPlan)
+                fetchPlanInfo(plan.id)
             })
         } else {
             Swal.fire({
@@ -55,21 +55,28 @@ const InfoData = ({ idPlan, description, value, setSelectedPlan }) => {
                 icon: 'error',
                 confirmButtonText: 'Ok'
             }).then(() => {
-                fetchPlanInfo(idPlan)
+                fetchPlanInfo(plan.id)
             })
         }
     }
 
+    useEffect(() => {
+        if (plan && plan.completed) {
+            setIsCompleted(true)
+        } else {
+            setIsCompleted(false)
+        }
+    }, [fetchPlanInfo])
+
     return (
         <div className='w-full border border-gray-300 rounded-lg shadow-lg py-4 px-64 mb-4 text-center'>
+            <h2 className='text-2xl font-bold mb-4'>{plan.description}</h2>
             {isCompleted ?
                 <div>
                     <h2 className='text-2xl font-bold mb-4'>FELICITACIONES, ALCANZASTE LA META</h2>
                 </div>
                 :
                 <div>
-
-                    <h2 className='text-2xl font-bold mb-4'>{description}</h2>
                     <div className='flex justify-between mb-6'>
                         <div>
                             <div className='text-lg'>Meta</div>
@@ -77,15 +84,16 @@ const InfoData = ({ idPlan, description, value, setSelectedPlan }) => {
                         </div>
                         <div>
                             <div className='text-lg'>Monto Actual</div>
-                            <div className='text-3xl font-bold'>${value}</div>
+                            <div className='text-3xl font-bold'>${plan.total_saving}</div>
                         </div>
                     </div>
                     <div className='flex justify-center space-x-4'>
                         <button className='bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-700' onClick={handleReset}>Reiniciar Ahorro</button>
-                        <button className='bg-red-500 text-white py-2 px-4 rounded hover:bg-red-700' onClick={handleDelete}>Eliminar Plan</button>  
+                        
                     </div>   
                 </div>
             }
+            <button className='bg-red-500 text-white py-2 px-4 rounded hover:bg-red-700' onClick={handleDelete}>Eliminar Plan</button>  
         </div>
     )
 }
