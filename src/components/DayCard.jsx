@@ -14,8 +14,16 @@ const DayCard = ({ number, price, saved, idDay, idPlan }) => {
                 text: 'El día fue guardado con éxito!',
                 icon: 'success',
                 confirmButtonText: 'Ok'
-            }).then(() => {
-                fetchPlanInfo(idPlan)
+            }).then(async () => {
+                await fetchPlanInfo(idPlan)
+                if (number === 200) {
+                    Swal.fire({
+                        title: 'Plan completado!',
+                        text: 'Felicidades, has completado el plan!',
+                        icon: 'success',
+                        confirmButtonText: 'Ok'
+                    })
+                }
             })
         } else {
             Swal.fire({

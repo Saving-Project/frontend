@@ -18,9 +18,7 @@ const Saving = ({ idPlan, setSelectedPlan }) => {
 
     return (
         <div className="container mx-auto py-4 px-32">
-            <InfoData idPlan={idPlan}
-                description={plan.description}
-                value={plan.total_saving}
+            <InfoData plan={plan}
                 setSelectedPlan={setSelectedPlan}
             />
             <div className='h-[70vh] flex-1 overflow-y-auto'>
